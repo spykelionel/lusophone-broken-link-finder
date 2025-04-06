@@ -10,8 +10,7 @@ def get_status_code(url):
         response = requests.get(url, headers=headers, timeout=10)
         return str(response.status_code)
     except RequestException as e:
-        # Bad gateway (502) or service unavailable (503)
-        return '502'
+        pass
 
 with open('task2.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
@@ -22,4 +21,5 @@ with open('task2.csv', 'r') as csvfile:
         url = row[0].strip()
         if url:  # Proceed if URL is not empty
             status_code = get_status_code(url)
-            print(f"({status_code}) {url}")
+            if(status_code is not None):
+                print(f"({status_code}) {url}")
